@@ -33,8 +33,11 @@ build-docker-image:
     - docker:19.03.12-dind
   script:
     - docker info
-      if [ "$CI_COMMIT_BRANCH" == "main" ]; then export IMAGE_NAME=production
-      elif [ "$CI_COMMIT_BRANCH" == "development" ]; then export IMAGE_NAME=staging
+    - |
+      if [ "$CI_COMMIT_BRANCH" == "main" ]; then
+      export IMAGE_NAME=production
+      elif [ "$CI_COMMIT_BRANCH" == "dev" ]; then
+      export IMAGE_NAME=staging
       else
       echo "Skipping Docker image build for branch $CI_COMMIT_BRANCH"
       exit 0
