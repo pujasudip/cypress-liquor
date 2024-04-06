@@ -18,6 +18,7 @@ sast:
   stage: test
   image: node:14
   script:
+    - npm install
     - npm run test
 
 build-project:
