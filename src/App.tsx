@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
-import Home from "./Home";
+import Home from "./home/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Login from "./logins/Login";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: "/about-us",
     element: <div>Hello ke cha?</div>,
+  },
+  {
+    path: "login",
+    element: <Login />,
   },
 ]);
 
