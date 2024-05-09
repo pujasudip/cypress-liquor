@@ -13,6 +13,9 @@ import Logo from "../assets/flame.png";
 import { useNavigate } from "react-router-dom";
 import useMobile from "../customHooks/useMobile";
 import styled from "styled-components";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setIsLoggedIn } from "../store/userSlice";
 
 const StyledCard = styled(Card)<{ $isMobile: boolean }>`
   height: ${(props) => (props.$isMobile ? "100vh" : "500px")};
@@ -36,15 +39,33 @@ const StyledImage = styled.img`
 `;
 
 const LoginFormValidationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Please enter valid email address.")
-    .required("Required"),
+  email: Yup.string().required("Required"),
   password: Yup.string().required("Password can not empty."),
 });
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isMobile = useMobile(window.innerWidth);
+
+  const handleLogin = async (values: any) => {
+    const res = await axios("http://127.0.0.1:5000/login", {
+      method: "POST",
+      headers: {
+        application: "json",
+        testHeader: "test",
+      },
+      data: {
+        email: values.email,
+        password: values.password,
+      },
+    });
+    if (res.status === 200) {
+      navigate("/");
+      console.log("data:", res.data);
+      dispatch(setIsLoggedIn(true));
+    }
+  };
 
   const { handleChange, handleSubmit, errors, touched } = useFormik({
     initialValues: {
@@ -52,7 +73,7 @@ const Login = () => {
       password: "",
     },
     onSubmit: (values) => {
-      console.log("values:", values);
+      handleLogin(values);
     },
     validationSchema: LoginFormValidationSchema,
   });

@@ -9,13 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsSideMenuOpen } from "../store/menuSlice";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../store";
 
 const TopNav: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isLoggedIn } = useSelector((state: RootState) => state.userDetails);
 
   const getData = async () => {
     const res = await axios({
@@ -30,7 +32,7 @@ const TopNav: React.FC = () => {
   };
 
   useEffect(() => {
-    getData();
+    // getData();
   }, []);
 
   return (
@@ -50,9 +52,13 @@ const TopNav: React.FC = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Cypress Liquor
           </Typography>
-          <Button color="inherit" onClick={() => navigate("/login")}>
-            Login
-          </Button>
+          {isLoggedIn ? (
+            <Typography>Hello Sudip!</Typography>
+          ) : (
+            <Button color="inherit" onClick={() => navigate("/login")}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
