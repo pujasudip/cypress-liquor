@@ -52,6 +52,7 @@ const Login = () => {
     const res = await axios("http://127.0.0.1:5000/login", {
       method: "POST",
       headers: {
+        "Access-Control-Allow-Origin": "*",
         application: "json",
         testHeader: "test",
       },
@@ -59,6 +60,7 @@ const Login = () => {
         email: values.email,
         password: values.password,
       },
+      withCredentials: true,
     });
     if (res.status === 200) {
       navigate("/");
