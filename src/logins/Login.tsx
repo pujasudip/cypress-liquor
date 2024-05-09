@@ -49,7 +49,7 @@ const Login = () => {
   const isMobile = useMobile(window.innerWidth);
 
   const handleLogin = async (values: any) => {
-    const res = await axios("http://127.0.0.1:5000/login", {
+    const res = await axios("http://www.cypress-liquor-be.shop/login", {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin": "*",
