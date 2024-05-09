@@ -1,30 +1,113 @@
-import { Box, Button, Card } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Card,
+  TextField,
+  Typography,
+} from "@mui/material";
 import styles from "./Login.module.scss";
-import styled from "@emotion/styled";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Logo from "../assets/flame.png";
+import { useNavigate } from "react-router-dom";
+import useMobile from "../customHooks/useMobile";
+import styled from "styled-components";
 
-const StyledCard = styled(Card)`
-  height: 450px;
+const StyledCard = styled(Card)<{ $isMobile: boolean }>`
+  height: ${(props) => (props.$isMobile ? "100vh" : "500px")};
   width: 400px;
+  img {
+    margin-top: ${(props) => (props.$isMobile ? "100px" : "0")};
+  }
 `;
 
-const StyledButton = styled(Button)`
+const StyledButtonGroup = styled(ButtonGroup)`
   position: absolute;
-  bottom: 25px;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
 `;
+
+const StyledImage = styled.img`
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+`;
+
+const LoginFormValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Please enter valid email address.")
+    .required("Required"),
+  password: Yup.string().required("Password can not empty."),
+});
 
 const Login = () => {
+  const navigate = useNavigate();
+  const isMobile = useMobile(window.innerWidth);
+
+  const { handleChange, handleSubmit, errors, touched } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      console.log("values:", values);
+    },
+    validationSchema: LoginFormValidationSchema,
+  });
+
   return (
     <Box className={styles.loginCard}>
-      <StyledCard>
-        <Box>Logo</Box>
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="flex-end"
-          my={2}
-        >
-          <StyledButton variant="contained">Login</StyledButton>
+      <StyledCard elevation={isMobile ? 0 : 10} $isMobile={isMobile}>
+        <Box display="flex" justifyContent="center" my={3}>
+          <StyledImage src={Logo} alt="company-logo" />
         </Box>
+        <form onSubmit={handleSubmit}>
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="flex-end"
+            my={2}
+          >
+            <Box mt={1}>
+              <Box mb={2}>
+                <TextField
+                  id="login-email"
+                  label="Email"
+                  variant="outlined"
+                  name="email"
+                  onChange={handleChange}
+                />
+                {errors.email && touched.email && (
+                  <Typography color="error">{errors.email}</Typography>
+                )}
+              </Box>
+              <Box>
+                <TextField
+                  id="login-password"
+                  label="Password"
+                  variant="outlined"
+                  name="password"
+                  type="password"
+                  onChange={handleChange}
+                />
+                {errors.password && touched.password && (
+                  <Typography color="error">{errors.password}</Typography>
+                )}
+              </Box>
+            </Box>
+          </Box>
+          <StyledButtonGroup>
+            <Button variant="contained" onClick={() => navigate("/")}>
+              Cancel
+            </Button>
+            <Box mx={1} />
+            <Button variant="contained" type="submit">
+              Login
+            </Button>
+          </StyledButtonGroup>
+        </form>
       </StyledCard>
     </Box>
   );
