@@ -13,7 +13,6 @@ import Logo from "../assets/flame.png";
 import { useNavigate } from "react-router-dom";
 import useMobile from "../customHooks/useMobile";
 import styled from "styled-components";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setIsLoggedIn } from "../store/userSlice";
 
@@ -49,22 +48,19 @@ const Login = () => {
   const isMobile = useMobile(window.innerWidth);
 
   const handleLogin = async (values: any) => {
-    const res = await axios("http://www.cypress-liquor-be.shop/login", {
+    const res = await fetch("http://127.0.0.1:5000/login", {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        application: "json",
-        testHeader: "test",
       },
-      data: {
+      body: JSON.stringify({
         email: values.email,
         password: values.password,
-      },
-      withCredentials: true,
+      }),
     });
     if (res.status === 200) {
       navigate("/");
-      console.log("data:", res.data);
       dispatch(setIsLoggedIn(true));
     }
   };
