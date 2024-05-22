@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.3e393dea.css",
-    "main.js": "/static/js/main.129d7344.js",
+    "main.js": "/static/js/main.3da51102.js",
     "static/js/453.1b5dcc2f.chunk.js": "/static/js/453.1b5dcc2f.chunk.js",
     "static/media/baralko-pasal-logo.png": "/static/media/baralko-pasal-logo.af77f836fee9df1a9959.png",
     "static/media/flame.png": "/static/media/flame.bbb5d2564dd0b495d078.png",
     "index.html": "/index.html",
     "main.3e393dea.css.map": "/static/css/main.3e393dea.css.map",
-    "main.129d7344.js.map": "/static/js/main.129d7344.js.map",
+    "main.3da51102.js.map": "/static/js/main.3da51102.js.map",
     "453.1b5dcc2f.chunk.js.map": "/static/js/453.1b5dcc2f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3e393dea.css",
-    "static/js/main.129d7344.js"
+    "static/js/main.3da51102.js"
   ]
 }

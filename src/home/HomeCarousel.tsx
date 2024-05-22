@@ -81,13 +81,13 @@ const HomeCarousel: React.FC = () => {
               }}
             />
           </StyledLeftBox>
-          <Box>
-            <CardMedia
-              component="img"
-              image={images[imageIndex].original}
-              height="400"
+          <Box width="100%" height="400px">
+            <img
+              src={images[imageIndex].original}
+              width="100%"
+              height="100%"
               alt=""
-              style={{ width: "500px" }}
+              style={{ objectFit: "cover" }}
             />
 
             <Box
