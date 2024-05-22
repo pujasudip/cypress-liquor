@@ -76,8 +76,8 @@ const HomeCarousel: React.FC = () => {
               onClick={handleLeftArrowClick}
               className={styles.arrowPointer}
               style={{
-                color: "black",
-                fontSize: "35px",
+                color: "white",
+                fontSize: "45px",
               }}
             />
           </StyledLeftBox>
@@ -98,17 +98,19 @@ const HomeCarousel: React.FC = () => {
                 transform: "translate(-50%)",
               }}
             >
-              {images.map((_, index) => {
-                return (
-                  <CircleIcon
-                    className={cx("circleIcon", {
-                      circleIconSelected: index === imageIndex,
-                    })}
-                    onClick={() => handleCircleIconClick(index)}
-                    color="action"
-                  />
-                );
-              })}
+              <Box display="flex" alignItems="center">
+                {images.map((_, index) => {
+                  return (
+                    <CircleIcon
+                      className={cx("circleIcon", {
+                        circleIconSelected: index === imageIndex,
+                      })}
+                      onClick={() => handleCircleIconClick(index)}
+                      color="info"
+                    />
+                  );
+                })}
+              </Box>
             </Box>
           </Box>
           <StyledRightBox>
@@ -116,8 +118,8 @@ const HomeCarousel: React.FC = () => {
               className={styles.arrowPointer}
               onClick={handleRightArrowClick}
               style={{
-                color: "black",
-                fontSize: "35px",
+                color: "white",
+                fontSize: "45px",
               }}
             />
           </StyledRightBox>

@@ -36,7 +36,7 @@ const HomeSignUpCard: React.FC = () => {
         </Box>
 
         <Box className={styles.centerHorizontal} bottom="50px">
-          <Link href="#">Sign in</Link>
+          <Link href="#">Create Account</Link>
         </Box>
       </Card>
     </Box>
