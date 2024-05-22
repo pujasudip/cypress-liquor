@@ -1,0 +1,18 @@
+.arrowPointer {
+    cursor: pointer;
+}
+
+.arrowPointer:hover {
+    transform: scale(1.1);
+}
+
+.circleIconSelected {
+    border: 1px solid green;
+    border-radius: 50%;
+}
+
+.circleIcon:hover {
+    box-sizing: border-box;
+    transform: scale(1.1);
+    cursor: pointer;
+}

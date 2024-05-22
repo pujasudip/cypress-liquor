@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./home/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./logins/Login";
+import OauthLogin from "./logins/OauthLogin";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "o-auth",
+    element: <OauthLogin />,
   },
 ]);
 

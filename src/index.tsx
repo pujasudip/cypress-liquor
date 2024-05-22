@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "./store";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

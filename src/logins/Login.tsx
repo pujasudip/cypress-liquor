@@ -48,7 +48,7 @@ const Login = () => {
   const isMobile = useMobile(window.innerWidth);
 
   const handleLogin = async (values: any) => {
-    const res = await fetch("https://www.cypress-liquor-be.shop/login", {
+    const res = await fetch(`${process.env.REACT_APP_API_USERS}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
