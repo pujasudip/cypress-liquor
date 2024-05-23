@@ -6,6 +6,7 @@ import HomeCarousel from "./HomeCarousel";
 import HomeSignUpCard from "../logins/HomeSignUpCard";
 import styled from "styled-components";
 import TrendingBanner from "../trending/TrendingBanner";
+import CartModal from "../cart/CartModal";
 
 const StyledBox = styled(Box)<{ $isMobile: boolean }>`
   width: ${(props) => (props.$isMobile ? "100%" : "50%")};
@@ -29,6 +30,7 @@ const Home: React.FC = () => {
         </StyledBox>
       </Box>
       <TrendingBanner />
+      <CartModal />
     </Box>
   );
 };
