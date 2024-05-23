@@ -12,7 +12,7 @@ import styles from "./Login.module.scss";
 const HomeSignUpCard: React.FC = () => {
   return (
     <Box p={2} position="relative">
-      <Card sx={{ height: "400px" }}>
+      <Card sx={{ height: "400px" }} elevation={10}>
         <Box>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h5" textAlign="center">

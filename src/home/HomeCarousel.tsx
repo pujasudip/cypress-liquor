@@ -1,8 +1,7 @@
-import { Box, Card, CardMedia } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Card } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import CircleIcon from "@mui/icons-material/Circle";
 import styles from "./Home.module.scss";
 import classNames from "classnames/bind";
 import styled from "styled-components";
@@ -25,6 +24,12 @@ const StyledRightBox = styled(Box)`
 
 const HomeCarousel: React.FC = () => {
   const [imageIndex, setImageIndex] = useState<number>(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      handleRightArrowClick();
+    }, 15000);
+  }, [imageIndex]);
 
   const images = [
     {
@@ -69,7 +74,7 @@ const HomeCarousel: React.FC = () => {
 
   return (
     <Box p={2} position="relative">
-      <Card sx={{ height: "400px" }}>
+      <Card sx={{ height: "400px" }} elevation={10}>
         <Box display="flex" justifyContent="center" alignItems="center">
           <StyledLeftBox>
             <ArrowBackIosIcon
@@ -101,7 +106,7 @@ const HomeCarousel: React.FC = () => {
               <Box display="flex" alignItems="center">
                 {images.map((_, index) => {
                   return (
-                    <CircleIcon
+                    <Box
                       className={cx("circleIcon", {
                         circleIconSelected: index === imageIndex,
                       })}
