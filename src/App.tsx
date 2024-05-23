@@ -4,6 +4,7 @@ import Home from "./home/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./logins/Login";
 import OauthLogin from "./logins/OauthLogin";
+import "react-multi-carousel/lib/styles.css";
 
 const router = createBrowserRouter([
   {

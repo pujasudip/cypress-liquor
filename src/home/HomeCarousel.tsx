@@ -1,5 +1,5 @@
 import { Box, Card } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import styles from "./Home.module.scss";
@@ -24,12 +24,6 @@ const StyledRightBox = styled(Box)`
 
 const HomeCarousel: React.FC = () => {
   const [imageIndex, setImageIndex] = useState<number>(0);
-
-  useEffect(() => {
-    setTimeout(() => {
-      handleRightArrowClick();
-    }, 15000);
-  }, [imageIndex]);
 
   const images = [
     {
