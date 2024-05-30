@@ -24,6 +24,7 @@ const responsive = {
 
 const items = [
   {
+    id: "1",
     name: "Wireless Earphone",
     description: "True wireless bluetooth earphone",
     price: 19.99,
@@ -37,6 +38,7 @@ const items = [
     stock: 8,
   },
   {
+    id: "2",
     name: "Quest 3",
     description: "Meta Quest VR head set",
     price: 400,
@@ -50,6 +52,7 @@ const items = [
     stock: 0,
   },
   {
+    id: "3",
     name: "Binoculars",
     description: "50X pair of binoculars",
     price: 238,
@@ -63,6 +66,7 @@ const items = [
     stock: 8,
   },
   {
+    id: "4",
     name: "Airpods",
     description: "Noise cancellation, long battery life",
     price: 169,
@@ -76,6 +80,7 @@ const items = [
     stock: 8,
   },
   {
+    id: "5",
     name: "Walkie Talkie",
     description: "50 miles with 3 days of battery life",
     price: 80,

@@ -5,6 +5,7 @@ import { RootState } from "../store";
 import styled from "styled-components";
 import { setIsCartModalOpen } from "../store/cartSlice";
 import CartQuantityModifier from "../ui-elements/CartQuantityModifier";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -20,13 +21,12 @@ const style = {
 
 const StyledButton = styled(Button)`
   width: 200px;
-  font-size: 12px;
-  padding: 0px;
   text-wrap: nowrap;
 `;
 
 const CartModal = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { isCartModalOpen, currentCartItem } = useSelector(
     (state: RootState) => state.cartDetails
@@ -34,6 +34,11 @@ const CartModal = () => {
 
   const handleContinueShopping = () => {
     dispatch(setIsCartModalOpen(false));
+  };
+
+  const handleViewCart = () => {
+    dispatch(setIsCartModalOpen(false));
+    navigate("/view-cart");
   };
 
   return (
@@ -78,7 +83,9 @@ const CartModal = () => {
                 alignItems="center"
               >
                 <Box mb={1}>
-                  <StyledButton variant="outlined">View Cart</StyledButton>
+                  <StyledButton variant="outlined" onClick={handleViewCart}>
+                    View Cart
+                  </StyledButton>
                 </Box>
                 <Box>
                   <StyledButton

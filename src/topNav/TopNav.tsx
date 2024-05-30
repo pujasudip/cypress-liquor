@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import {
   AppBar,
+  Badge,
   Box,
   Button,
   IconButton,
@@ -11,16 +12,20 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsSideMenuOpen } from "../store/menuSlice";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
 import { RootState } from "../store";
 import Cookies from "js-cookie";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CompanyLogo from "../assets/baralko-pasal-logo.png";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Footer from "../about-us/Footer";
+import SideMenu from "../side-menu/SideMenu";
 
 const TopNav: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoggedIn } = useSelector((state: RootState) => state.userDetails);
+  const { cartCount } = useSelector((state: RootState) => state.cartDetails);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const getData = async () => {
@@ -50,6 +55,7 @@ const TopNav: React.FC = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <SideMenu />
       <AppBar
         position="static"
         style={{
@@ -68,22 +74,34 @@ const TopNav: React.FC = () => {
             <MenuIcon />
           </IconButton>
           <Box>
-            <img src={CompanyLogo} alt="company logo" width="50px" />
+            <img
+              src={CompanyLogo}
+              alt="company logo"
+              width="50px"
+              onClick={() => navigate("/")}
+            />
           </Box>
-          {isLoggedIn ? (
-            <Box display="flex" alignItems="center">
-              <Box mr={1}>
-                <AccountCircleIcon />
+          <Box display="flex" alignItems="center">
+            {isLoggedIn ? (
+              <Box display="flex" alignItems="center">
+                <Box mr={1}>
+                  <AccountCircleIcon />
+                </Box>
+                <Typography>Hello Sudip!</Typography>
               </Box>
-              <Typography>Hello Sudip!</Typography>
-            </Box>
-          ) : (
-            <Button color="inherit" onClick={() => navigate("/login")}>
-              Login
-            </Button>
-          )}
+            ) : (
+              <Button color="inherit" onClick={() => navigate("/login")}>
+                Login
+              </Button>
+            )}
+            <Badge badgeContent={cartCount} color="success">
+              <ShoppingCartIcon onClick={() => navigate("/view-cart")} />
+            </Badge>
+          </Box>
         </Toolbar>
       </AppBar>
+      <Outlet />
+      <Footer />
     </Box>
   );
 };

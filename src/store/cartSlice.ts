@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Product } from "../types";
+import { Product } from "../types/types";
 
 interface CartDetails {
   isCartModalOpen: boolean;
   cartItems: Product[];
   currentCartItem?: Product;
+  cartCount: number;
 }
 
 const initialState: CartDetails = {
   isCartModalOpen: false,
   cartItems: [],
+  cartCount: 0,
 };
 
 const cartSlice = createSlice({
@@ -22,8 +24,15 @@ const cartSlice = createSlice({
     setCurrentCartItem: (state, action) => {
       state.currentCartItem = action.payload;
     },
+    setCartCount: (state, action) => {
+      state.cartCount = action.payload;
+    },
   },
 });
 
-export const { setIsCartModalOpen, setCurrentCartItem } = cartSlice.actions;
+export const {
+  setIsCartModalOpen,
+  setCurrentCartItem,
+  setCartCount,
+} = cartSlice.actions;
 export default cartSlice.reducer;

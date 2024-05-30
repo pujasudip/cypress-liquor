@@ -2,9 +2,14 @@ import { Box, Button, Paper, Rating, Typography } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import styles from "./cart.module.scss";
-import { Product } from "../types";
-import { setCurrentCartItem, setIsCartModalOpen } from "../store/cartSlice";
-import { useDispatch } from "react-redux";
+import { Product } from "../types/types";
+import {
+  setCartCount,
+  setCurrentCartItem,
+  setIsCartModalOpen,
+} from "../store/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const StyledPaper = styled(Paper)`
   width: 200px;
@@ -16,8 +21,10 @@ const StyledPaper = styled(Paper)`
 
 const AddToCart: React.FC<{ item: Product }> = ({ item }) => {
   const dispatch = useDispatch();
+  const { cartCount } = useSelector((state: RootState) => state.cartDetails);
 
   const handleAddToCart = () => {
+    dispatch(setCartCount(cartCount + 1));
     dispatch(setIsCartModalOpen(true));
     dispatch(setCurrentCartItem(item));
   };
