@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   AppBar,
   Badge,
@@ -27,6 +27,7 @@ const TopNav: React.FC = () => {
   const { isLoggedIn } = useSelector((state: RootState) => state.userDetails);
   const { cartCount } = useSelector((state: RootState) => state.cartDetails);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [bannerText, setBannerText] = useState<string>("");
 
   const getData = async () => {
     const res = await axios({
@@ -35,6 +36,21 @@ const TopNav: React.FC = () => {
     });
     console.log("res:", res);
   };
+
+  const getBannerText = () => {
+    axios("https://cypress-liquor-be-node-130fe5821632.herokuapp.com/offers", {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    }).then((res) => {
+      setBannerText(res?.data);
+    });
+  };
+
+  useEffect(() => {
+    getBannerText();
+  }, []);
 
   const handleSideMenuOpen = () => {
     dispatch(setIsSideMenuOpen(true));
@@ -56,50 +72,62 @@ const TopNav: React.FC = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <SideMenu />
-      <AppBar
-        position="static"
-        style={{
-          backgroundColor: "#51bebd",
-        }}
-      >
-        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={handleSideMenuOpen}
+      <Box>
+        {bannerText && (
+          <Box
+            width="100%"
+            style={{ color: "red", backgroundColor: "#D1E841" }}
+            textAlign="center"
+            py={1}
           >
-            <MenuIcon />
-          </IconButton>
-          <Box>
-            <img
-              src={CompanyLogo}
-              alt="company logo"
-              width="50px"
-              onClick={() => navigate("/")}
-            />
+            {bannerText}
           </Box>
-          <Box display="flex" alignItems="center">
-            {isLoggedIn ? (
-              <Box display="flex" alignItems="center">
-                <Box mr={1}>
-                  <AccountCircleIcon />
+        )}
+        <AppBar
+          position="static"
+          style={{
+            backgroundColor: "#51bebd",
+          }}
+        >
+          <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+              onClick={handleSideMenuOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box>
+              <img
+                src={CompanyLogo}
+                alt="company logo"
+                width="50px"
+                onClick={() => navigate("/")}
+              />
+            </Box>
+            <Box display="flex" alignItems="center">
+              {isLoggedIn ? (
+                <Box display="flex" alignItems="center">
+                  <Box mr={1}>
+                    <AccountCircleIcon />
+                  </Box>
+                  <Typography>Hello Sudip!</Typography>
                 </Box>
-                <Typography>Hello Sudip!</Typography>
-              </Box>
-            ) : (
-              <Button color="inherit" onClick={() => navigate("/login")}>
-                Login
-              </Button>
-            )}
-            <Badge badgeContent={cartCount} color="success">
-              <ShoppingCartIcon onClick={() => navigate("/view-cart")} />
-            </Badge>
-          </Box>
-        </Toolbar>
-      </AppBar>
+              ) : (
+                <Button color="inherit" onClick={() => navigate("/login")}>
+                  Login
+                </Button>
+              )}
+              <Badge badgeContent={cartCount} color="success">
+                <ShoppingCartIcon onClick={() => navigate("/view-cart")} />
+              </Badge>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
       <Outlet />
       <Footer />
     </Box>
