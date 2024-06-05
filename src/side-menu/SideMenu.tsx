@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
@@ -15,6 +15,7 @@ import SportsBarIcon from "@mui/icons-material/SportsBar";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import CheckroomIcon from "@mui/icons-material/Checkroom";
 import { setIsSideMenuOpen } from "../store/menuSlice";
+import axios from "axios";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 
@@ -24,6 +25,16 @@ export const SideMenu = () => {
   );
 
   const dispatch = useDispatch();
+  const [menuItems, setMenuItems] = React.useState<string[][]>([[], []]);
+
+  useEffect(() => {
+    axios("https://www.pujathreading.shop/side-menu", {
+      method: "GET",
+    }).then((res): any => {
+      console.log("res:", res);
+      setMenuItems(res?.data);
+    });
+  }, []);
 
   const [state, setState] = React.useState({
     top: false,
@@ -74,7 +85,7 @@ export const SideMenu = () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Whisky", "Beer"].map((text, index) => (
+        {menuItems[0].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>{handleIconRender(text)}</ListItemIcon>
@@ -85,7 +96,7 @@ export const SideMenu = () => {
       </List>
       <Divider />
       <List>
-        {["Grocery", "Clothes"].map((text, index) => (
+        {menuItems[1].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>{handleIconRender(text)}</ListItemIcon>
