@@ -38,7 +38,7 @@ const TopNav: React.FC = () => {
   };
 
   const getBannerText = () => {
-    axios("https://cypress-liquor-be-node-130fe5821632.herokuapp.com/offers", {
+    axios("https://cypress-node-be.onrender.com/offers", {
       method: "GET",
       headers: {
         "Access-Control-Allow-Origin": "*",
